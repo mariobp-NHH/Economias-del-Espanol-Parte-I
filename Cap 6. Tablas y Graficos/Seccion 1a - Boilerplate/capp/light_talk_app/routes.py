@@ -171,12 +171,6 @@ def result_sentence():
 @login_required
 def select_your_sentences():
     form = YourSentencesForm()
-    if form.validate_on_submit():
-        objective = form.objective.data
-        source = form.source.data
-        session["objective"]=objective
-        session["source"]=source
-        return redirect(url_for('light_talk_app.your_sentences'))
     return render_template('light_talk_app/select_your_sentences.html', title='select your sentences', form=form)
 
 #Select your sentences
@@ -188,67 +182,7 @@ def your_sentences():
     source=session["source"]
     form.objective.data=session["objective"]
     form.source.data=session["source"]
-    if objective != "Todos" and source != "Todas":
-        sentences = Sentence.query.filter_by(author=current_user). \
-                filter(Sentence.objective == objective).\
-                filter(Sentence.source == source).\
-                order_by(Sentence.date.desc()).all()
-        incorrect = Sentence.query.filter_by(author=current_user). \
-                filter(Sentence.result_num == 0).\
-                filter(Sentence.objective == objective).\
-                filter(Sentence.source == source).\
-                order_by(Sentence.date.desc()).count()
-        correct = Sentence.query.filter_by(author=current_user). \
-                filter(Sentence.result_num == 1).\
-                filter(Sentence.objective == objective).\
-                filter(Sentence.source == source).\
-                order_by(Sentence.date.desc()).count()
-    elif objective != "Todos" and source == "Todas":
-        sentences = Sentence.query.filter_by(author=current_user). \
-                filter(Sentence.objective == objective).\
-                filter(Sentence.source != source).\
-                order_by(Sentence.date.desc()).all()
-        incorrect = Sentence.query.filter_by(author=current_user). \
-                filter(Sentence.result_num == 0).\
-                filter(Sentence.objective == objective).\
-                filter(Sentence.source != source).\
-                order_by(Sentence.date.desc()).count()
-        correct = Sentence.query.filter_by(author=current_user). \
-                filter(Sentence.result_num == 1).\
-                filter(Sentence.objective == objective).\
-                filter(Sentence.source != source).\
-                order_by(Sentence.date.desc()).count()
-    elif objective == "Todos" and source != "Todas":
-        sentences = Sentence.query.filter_by(author=current_user). \
-                filter(Sentence.objective != objective).\
-                filter(Sentence.source == source).\
-                order_by(Sentence.date.desc()).all()
-        incorrect = Sentence.query.filter_by(author=current_user). \
-                filter(Sentence.result_num == 0).\
-                filter(Sentence.objective != objective).\
-                filter(Sentence.source == source).\
-                order_by(Sentence.date.desc()).count()
-        correct = Sentence.query.filter_by(author=current_user). \
-                filter(Sentence.result_num == 1).\
-                filter(Sentence.objective != objective).\
-                filter(Sentence.source == source).\
-                order_by(Sentence.date.desc()).count()
-    else:
-        sentences = Sentence.query.filter_by(author=current_user). \
-                filter(Sentence.objective != objective).\
-                filter(Sentence.source != source).\
-                order_by(Sentence.date.desc()).all()
-        incorrect = Sentence.query.filter_by(author=current_user). \
-                filter(Sentence.result_num == 0).\
-                filter(Sentence.objective != objective).\
-                filter(Sentence.source != source).\
-                order_by(Sentence.date.desc()).count()
-        correct = Sentence.query.filter_by(author=current_user). \
-                filter(Sentence.result_num == 1).\
-                filter(Sentence.objective != objective).\
-                filter(Sentence.source != source).\
-                order_by(Sentence.date.desc()).count()
-    return render_template('light_talk_app/your_sentences.html', title='select your sentences', form=form, sentences=sentences, correct=correct, incorrect=incorrect)
+    return render_template('light_talk_app/your_sentences.html', title='select your sentences')
 
 
     
