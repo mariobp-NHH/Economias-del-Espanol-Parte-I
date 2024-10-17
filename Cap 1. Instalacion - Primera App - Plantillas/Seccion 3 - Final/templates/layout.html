@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        {% if title %}
-            <title>{{ title }}</title>
-        {% else %}
-            <title>home</title>
-        {% endif %}
-    </head>
-    <body>
-        <ul>
-          <li>Home</li>
-          <br />
-          <li>Business</li>
-        </ul>
-        {% block content %} {% endblock %}
-    </body>
+  <head>
+    {% if title %}
+    <title>{{ title }}</title>
+    {% else %}
+    <title>home</title>
+    {% endif %}
+  </head>
+  <body>
+    <ul>
+      <li><a href="{{url_for('home')}}">Home</a></li>
+      <br />
+      <li><a href="{{url_for('business')}}">Business</a></li>
+    </ul>
+    {% block content %} {% endblock %}
+  </body>
 </html>
