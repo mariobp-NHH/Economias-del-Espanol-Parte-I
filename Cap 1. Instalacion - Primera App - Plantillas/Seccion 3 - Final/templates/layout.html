@@ -8,6 +8,11 @@
     {% endif %}
   </head>
   <body>
+    <ul>
+      <li><a href="{{url_for('home')}}">Home</a></li>
+      <li><a href="{{url_for('business')}}">Business</a></li>
+      <li><a href="{{url_for('light_talk_app')}}">App</a></li>
+    </ul>
     {% block content %} {% endblock %}
   </body>
 </html>
